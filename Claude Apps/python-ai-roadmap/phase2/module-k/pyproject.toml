@@ -1,0 +1,16 @@
+[project]
+name = "module-k"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "scikit-learn>=1.4",
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "joblib>=1.3",
+    "streamlit>=1.35",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
