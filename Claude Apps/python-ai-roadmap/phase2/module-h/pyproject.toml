@@ -1,0 +1,33 @@
+[project]
+name = "module-h"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.2",
+    "plotly>=5.22",
+    "streamlit>=1.35",
+    "statsmodels>=0.14",   # plotly trendline="ols"
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "mypy>=1.10",
+    "ruff>=0.4",
+    "pandas-stubs>=2.2",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=charts --cov-report=term-missing --cov-fail-under=90"
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

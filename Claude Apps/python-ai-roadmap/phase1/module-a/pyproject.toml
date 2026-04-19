@@ -1,0 +1,13 @@
+[project]
+name = "module-a"
+version = "0.1.0"
+description = "Module A — Number Guesser CLI"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+]
