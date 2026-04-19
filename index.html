@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocStruct — Documentation Template Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background grid -->
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <div class="app-wrapper">
+
+    <!-- ── HEADER ──────────────────────────────────────────────────────── -->
+    <header class="site-header">
+      <div class="header-inner">
+
+        <div class="brand">
+          <div class="brand-icon" aria-hidden="true">DS</div>
+          <div class="brand-text">
+            <div class="brand-name">Doc<span class="brand-accent">Struct</span></div>
+            <div class="brand-tagline">generate structured doc templates instantly</div>
+          </div>
+        </div>
+
+        <div class="header-meta">
+          <span class="meta-badge">App C</span>
+          <span class="meta-badge meta-badge--outline">Phase 1</span>
+          <span class="meta-badge meta-badge--outline">v1.0</span>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- ── MAIN ────────────────────────────────────────────────────────── -->
+    <main class="main-content">
+
+      <!-- LEFT COLUMN: selector + form + action buttons -->
+      <div>
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-title__number">01</span>
+            Configure Template
+          </h2>
+          <p class="section-desc">Select a documentation type then fill in the fields. The preview updates live.</p>
+        </div>
+
+        <!-- Template type selector -->
+        <div class="selector-wrapper">
+          <select class="template-selector" id="template-selector" aria-label="Select template type"></select>
+        </div>
+
+        <!-- Dynamic form fields injected here by renderForm.js -->
+        <div id="form-area"></div>
+
+        <!-- Action buttons -->
+        <div class="controls-bar">
+          <button class="btn btn--primary" id="btn-copy">
+            Copy to Clipboard
+          </button>
+          <div class="controls-divider" aria-hidden="true"></div>
+          <button class="btn btn--download" id="btn-download">
+            Download .md
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: stats bar + live preview -->
+      <div>
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="section-title__number">02</span>
+            Live Preview
+          </h2>
+          <p class="section-desc">Your Markdown template rendered in real time.</p>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="stats-bar" id="stats-bar" data-state="empty">
+          <div class="stats-bar__item">
+            <span class="stats-bar__label">Words</span>
+            <span class="stats-bar__value" id="stat-words">—</span>
+          </div>
+          <div class="stats-bar__item">
+            <span class="stats-bar__label">Lines</span>
+            <span class="stats-bar__value" id="stat-lines">—</span>
+          </div>
+          <div class="stats-bar__item">
+            <span class="stats-bar__label">Sections</span>
+            <span class="stats-bar__value" id="stat-sections">—</span>
+          </div>
+          <span class="stats-bar__filename" id="stat-filename">—</span>
+        </div>
+
+        <!-- Preview panel -->
+        <div class="preview-panel" id="preview-panel" data-state="empty">
+
+          <div class="preview-bar">
+            <span class="preview-bar__title">
+              <span class="live-dot" aria-hidden="true"></span>
+              Markdown output
+            </span>
+            <span class="preview-bar__word-count" id="word-count">0 words</span>
+            <span class="preview-bar__filename" id="preview-filename">—</span>
+          </div>
+
+          <!-- Output written here by updatePreview() -->
+          <pre id="preview-output" aria-live="polite" aria-label="Template preview"></pre>
+
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ── FOOTER ──────────────────────────────────────────────────────── -->
+    <footer class="app-footer">
+      <span class="footer-copy">DocStruct · App C of 26 · Phase 1</span>
+      <nav class="footer-links" aria-label="Footer links">
+        <a class="footer-link" href="#">GitHub</a>
+        <a class="footer-link" href="#">Portfolio</a>
+      </nav>
+    </footer>
+
+  </div><!-- /app-wrapper -->
+
+  <!-- Scripts (load order matters) -->
+  <script src="templates.js"></script>
+  <script src="renderForm.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
