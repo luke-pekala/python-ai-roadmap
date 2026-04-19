@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.joblib
+data/
+submission.csv
+.pytest_cache/
+*.pyc

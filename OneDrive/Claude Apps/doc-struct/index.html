@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocStruct — Documentation Template Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Geist via Bunny Fonts (closest free CDN match) -->
+  <link href="https://fonts.bunny.net/css?family=geist:300,400,500,600&family=geist-mono:300,400,500" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── HEADER ──────────────────────────────────────────────────────── -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">DS</div>
+        <div class="brand-text">
+          <span class="brand-name">DocStruct</span>
+          <span class="brand-tagline">documentation template generator</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Version tag scrolls to / opens the What's new changelog -->
+        <button class="version-tag" id="version-tag-btn" aria-label="Open version history">
+          v1.0
+        </button>
+
+        <!-- Pill toggle — exact structure from StyleGuard -->
+        <button class="btn--icon" id="theme-toggle" aria-label="Switch colour theme">
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <span class="theme-toggle-label">
+            <span class="label-dark">Dark</span>
+            <span class="label-light">Light</span>
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ── APP SHELL ───────────────────────────────────────────────────── -->
+  <main class="app-shell">
+
+    <!-- LEFT PANE: selector + form + actions -->
+    <div class="pane pane--input">
+
+      <div class="pane-header">
+        <h2 class="pane-title">
+          <span class="pane-step">01</span>
+          Configure
+        </h2>
+      </div>
+
+      <!-- Template type selector -->
+      <div class="selector-wrap">
+        <select class="field-select" id="template-selector" aria-label="Select documentation template type"></select>
+      </div>
+
+      <!-- Dynamic form injected by renderForm.js -->
+      <div class="form-scroll">
+        <div id="form-area"></div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="input-actions">
+        <button class="btn btn--primary" id="btn-copy">
+          Copy to Clipboard
+        </button>
+        <button class="btn btn--ghost" id="btn-download">
+          Download .md
+        </button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANE: stats + live preview -->
+    <div class="pane pane--output">
+
+      <div class="pane-header">
+        <h2 class="pane-title">
+          <span class="pane-step">02</span>
+          <span class="live-dot" aria-hidden="true"></span>
+          Preview
+        </h2>
+        <span class="preview-filename" id="preview-filename" aria-live="polite">—</span>
+        <button class="btn btn--copy" id="btn-copy-2" aria-label="Copy preview to clipboard">
+          Copy
+        </button>
+      </div>
+
+      <!-- Stats bar -->
+      <div id="stats-bar" role="region" aria-label="Template statistics">
+        <div class="stat stat--words">
+          <span class="stat-value" id="stat-words">—</span>
+          <span class="stat-label">Words</span>
+        </div>
+        <div class="stat stat--lines">
+          <span class="stat-value" id="stat-lines">—</span>
+          <span class="stat-label">Lines</span>
+        </div>
+        <div class="stat stat--sections">
+          <span class="stat-value" id="stat-sections">—</span>
+          <span class="stat-label">Sections</span>
+        </div>
+      </div>
+
+      <!-- Live Markdown output -->
+      <pre id="preview-output" aria-live="polite" aria-label="Generated Markdown template">
+        <div class="preview-empty">
+          <svg class="preview-empty-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <p>Fill in the fields on the left to generate your template.</p>
+        </div>
+      </pre>
+
+    </div>
+
+  </main>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p>DocStruct — documentation templates for teams that care about craft.</p>
+      <!-- "What's new" changelog toggle — same pattern as StyleGuard -->
+      <button class="changelog-toggle-btn" id="changelog-toggle"
+              aria-expanded="false" aria-controls="changelog-panel">
+        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg>
+        What's new
+        <svg class="changelog-toggle-chevron" xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+    </div>
+  </footer>
+
+  <!-- ── CHANGELOG PANEL ─────────────────────────────────────────────── -->
+  <div class="changelog-panel" id="changelog-panel" hidden>
+    <div class="changelog-inner">
+      <div class="changelog-header">
+        <span class="changelog-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg>
+          Version history
+        </span>
+        <a class="changelog-gh-link"
+           href="https://github.com/lukepekala1-afk/style-guard/releases"
+           target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          View on GitHub
+        </a>
+      </div>
+      <div class="changelog-content">
+        <div class="changelog-release">
+          <div class="changelog-release-header">
+            <span class="changelog-version">v1.0.0</span>
+            <span class="changelog-date">2024-06-15</span>
+            <span class="changelog-latest-badge">latest</span>
+          </div>
+          <ul class="changelog-items">
+            <li class="changelog-item">5 documentation templates: API Reference, User Manual, Release Notes, How-To Guide, Troubleshooting</li>
+            <li class="changelog-item">Dynamic form rendering — fields update live as you type</li>
+            <li class="changelog-item">Copy to clipboard and Download as .md</li>
+            <li class="changelog-item">Real-time word count, line count, and section count stats</li>
+            <li class="changelog-item">Dark / light theme toggle with system preference detection</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts (load order matters) -->
+  <script src="templates.js"></script>
+  <script src="renderForm.js"></script>
+  <script src="app.js"></script>
+
+  <!-- UI wiring: theme toggle · changelog · secondary copy button -->
+  <script>
+    // ── Theme: single pill toggle matching StyleGuard ───────────────────
+    const applyTheme = (theme) => {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem('docstruct-theme', theme);
+    };
+
+    // Restore saved preference, fall back to OS preference
+    const savedTheme = localStorage.getItem('docstruct-theme');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      applyTheme('light');
+    } else {
+      applyTheme('dark');
+    }
+
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        themeToggle.classList.add('toggling');
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        setTimeout(() => themeToggle.classList.remove('toggling'), 400);
+      });
+    }
+
+    // ── Changelog: opened by both footer button AND header version tag ────
+    const changelogToggle  = document.getElementById('changelog-toggle');
+    const changelogPanel   = document.getElementById('changelog-panel');
+    const versionTagBtn    = document.getElementById('version-tag-btn');
+
+    function openChangelog() {
+      if (!changelogPanel || !changelogToggle) return;
+      changelogPanel.hidden = false;
+      changelogToggle.setAttribute('aria-expanded', 'true');
+      // Smooth scroll so the panel is visible
+      setTimeout(() => changelogPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+    }
+
+    function toggleChangelog() {
+      if (!changelogPanel || !changelogToggle) return;
+      const isOpen = changelogToggle.getAttribute('aria-expanded') === 'true';
+      changelogToggle.setAttribute('aria-expanded', String(!isOpen));
+      changelogPanel.hidden = isOpen;
+      if (!isOpen) {
+        setTimeout(() => changelogPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+      }
+    }
+
+    if (changelogToggle) changelogToggle.addEventListener('click', toggleChangelog);
+    if (versionTagBtn)   versionTagBtn.addEventListener('click', openChangelog);
+
+    // ── Secondary copy button (pane header) ──────────────────────────────
+    const copyBtn2 = document.getElementById('btn-copy-2');
+    if (copyBtn2) {
+      copyBtn2.addEventListener('click', () => {
+        if (typeof copyToClipboard === 'function') copyToClipboard(copyBtn2);
+      });
+    }
+  </script>
+
+</body>
+</html>
